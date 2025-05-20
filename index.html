@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Classificador de Nível de Herói</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #2b5876, #4e4376);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    label {
+      display: block;
+      text-align: left;
+      margin: 15px 0 5px 0;
+      font-weight: 600;
+    }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    button {
+      margin-top: 25px;
+      background: #6a11cb;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      border: none;
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: linear-gradient(135deg, #2575fc, #6a11cb);
+    }
+    .resultado {
+      margin-top: 25px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 15px;
+      border-radius: 10px;
+      min-height: 48px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    @media (max-width: 420px) {
+      .container {
+        padding: 20px;
+      }
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Classificador de Nível de Herói</h1>
+
+    <label for="nome">Nome do Herói:</label>
+    <input type="text" id="nome" placeholder="Digite o nome do herói" />
+
+    <label for="xp">Quantidade de XP:</label>
+    <input type="number" id="xp" placeholder="Digite o XP do herói" min="0" />
+
+    <button id="btnClassificar">Classificar Nível</button>
+
+    <div class="resultado" id="resultado"></div>
+  </div>
+
+  <script>
+    const btn = document.getElementById("btnClassificar");
+    const resultado = document.getElementById("resultado");
+
+    btn.addEventListener("click", () => {
+      const nome = document.getElementById("nome").value.trim();
+      const xpStr = document.getElementById("xp").value.trim();
+      const xp = Number(xpStr);
+
+      if (!nome) {
+        resultado.textContent = "Por favor, digite o nome do herói.";
+        return;
+      }
+
+      if (!xpStr || isNaN(xp) || xp < 0) {
+        resultado.textContent = "Por favor, digite um valor válido de XP (0 ou mais).";
+        return;
+      }
+
+      let nivel = "";
+
+      if (xp < 1000) {
+        nivel = "Ferro";
+      } else if (xp >= 1001 && xp <= 2000) {
+        nivel = "Bronze";
+      } else if (xp >= 2001 && xp <= 5000) {
+        nivel = "Prata";
+      } else if (xp >= 5001 && xp <= 7000) {
+        nivel = "Ouro";
+      } else if (xp >= 7001 && xp <= 8000) {
+        nivel = "Platina";
+      } else if (xp >= 8001 && xp <= 9000) {
+        nivel = "Ascendente";
+      } else if (xp >= 9001 && xp <= 10000) {
+        nivel = "Imortal";
+      } else if (xp >= 10001) {
+        nivel = "Radiante";
+      } else {
+        nivel = "Nível desconhecido";
+      }
+
+      resultado.textContent = `O Herói de nome ${nome} está no nível de ${nivel}`;
+    });
+  </script>
+</body>
+</html>
